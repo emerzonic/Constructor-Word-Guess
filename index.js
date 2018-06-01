@@ -6,7 +6,7 @@ var newWord;
 //generate randon word from wordsBank.js
 var generateWord = function () {
     randomWord = wordsBank[Math.floor(Math.random() * wordsBank.length)];
-    console.log(randomWord);//for testing only
+    console.log(randomWord); //for testing only
     newWord = new Word(randomWord);
     console.log('NEW WORD!');
     //split the letters of the object word and display placeholder to user
@@ -16,9 +16,11 @@ var generateWord = function () {
 
 generateWord();
 
+
+//This function checks the word's status, prompts and takes the user guess and validate
 function takeUserGuess() {
     if (newWord.status) {
-        resetGame();
+        generateWord();
     } else {
         inquirer.prompt([{
             name: "guess",
@@ -29,15 +31,4 @@ function takeUserGuess() {
             takeUserGuess();
         });
     }
-}
-
-
-function resetGame() {
-    var confirm = require('inquirer-confirm');
-    confirm('WOULD YOU LIKE TO PLAY AGAIN?')
-        .then(function confirmed() {
-            generateWord();
-        }, function cancelled() {
-            console.log('GAME ENDED');
-        });
 }
