@@ -19,7 +19,7 @@ class Word {
         return this;
     }
 
-    //This method tracks the status of the guesses remaining and update if guess is wrong or correct
+    //This method tracks the status of the guesses remaining and updates if guess is wrong or correct
     trackStatus() {
         var track = 0;
         this.splittedLetters.forEach(obj => {

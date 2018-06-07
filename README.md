@@ -1,2 +1,2 @@
 # Constructor-Word-Guess
-Node.js
+Constructor-Word-Guess is a node js CLI word guessing game.
