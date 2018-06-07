@@ -20,7 +20,6 @@ class Letter {
     takeGuess(guess) {
         if (this.letter === guess) {
             this.status = true;
-            this.tracker = 1;  
         }
     }
 }

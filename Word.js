@@ -33,7 +33,7 @@ class Word {
         } else {
             console.log('\x1b[31m','INCORRECT!');
         }
-        console.log(`You have ${Number(this.word.length - track)} more letters remaining`);
+        console.log(`You have ${Number(this.word.length - track)} more remaining`);
         return this;
     }
 
