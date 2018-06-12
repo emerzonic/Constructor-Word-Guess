@@ -1,5 +1,4 @@
 var Letter = require('./Letter');
-var letter = new Letter();
 
 //Word constructor
 class Word {
@@ -13,7 +12,7 @@ class Word {
     splitLetters() {
         var arr = this.word.split("");
         arr.forEach(value => {
-            letter = new Letter(value);
+            var letter = new Letter(value);
             this.splittedLetters.push(letter);
         });
         return this;
