@@ -7,7 +7,7 @@ var newWord;
 var generateWord = function () {
     randomWord = wordsBank[Math.floor(Math.random() * wordsBank.length)];
     console.log('YOU GOT A NEW WORD!');
-    // console.log(randomWord); //for testing only
+    //console.log(randomWord); //for testing only
     newWord = new Word(randomWord);
     //split the letters of the object word and display placeholders to user
     newWord.splitLetters().displayWord();
@@ -16,7 +16,7 @@ var generateWord = function () {
 
 generateWord();
 
-//This function checks the word's status, prompts and takes the user guess and validate
+//Checks the word's status, prompts and takes the user guess and validate
 function takeUserGuess() {
     if (newWord.status) {
         generateWord();
@@ -25,7 +25,7 @@ function takeUserGuess() {
             name: "guess",
             message: "Guess a letter?"
         }]).then(letter => {
-            //take check user guess, track word status and display word to user
+            //Check user guess, track word status and display word to user
             newWord.takeChar(letter.guess).trackStatus().displayWord();
             takeUserGuess();
         });
