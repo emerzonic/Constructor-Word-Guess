@@ -27,9 +27,9 @@ function takeUserGuess() {
         }]).then(letter => {
             //Check user guess, track word status and display word to user
             newWord
-            .takeChar(letter.guess)
-            .trackStatus()
-            .displayWord();
+                .takeChar(letter.guess)
+                .trackStatus()
+                .displayWord();
             takeUserGuess();
         });
     }
