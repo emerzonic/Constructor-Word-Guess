@@ -10,7 +10,9 @@ var generateWord = function () {
     //console.log(randomWord); //for testing only
     newWord = new Word(randomWord);
     //split the letters of the object word and display placeholders to user
-    newWord.splitLetters().displayWord();
+    newWord
+        .splitLetters()
+        .displayWord();
     takeUserGuess();
 };
 
