@@ -26,7 +26,10 @@ function takeUserGuess() {
             message: "Guess a letter?"
         }]).then(letter => {
             //Check user guess, track word status and display word to user
-            newWord.takeChar(letter.guess).trackStatus().displayWord();
+            newWord
+            .takeChar(letter.guess)
+            .trackStatus()
+            .displayWord();
             takeUserGuess();
         });
     }
