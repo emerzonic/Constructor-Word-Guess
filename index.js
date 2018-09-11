@@ -25,7 +25,7 @@ function takeUserGuess() {
     } else {
         inquirer.prompt([{
             name: "guess",
-            message: "Guess a letter?"
+            message: "Guess a letter."
         }]).then(letter => {
             //Check user guess, track word status and display word to user
             newWord
