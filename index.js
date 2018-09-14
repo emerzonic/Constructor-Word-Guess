@@ -40,7 +40,7 @@ class GameController {
         }
     }
 
-    //Ask the user if they want to continue playing or not
+    //Ask the user to continue playing or not
     resetGame(){
         const confirm = require('inquirer-confirm');
         confirm('WOULD YOU LIKE TO PLAY AGAIN?')
