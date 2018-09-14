@@ -1,10 +1,11 @@
+//TThis class controls the game by calling methods on the word and letter classes
 class GameController {
     constructor() {
         this.newWord = '';
         this.score = 0;
     }
 
-    // generate randon word from wordsBank.js
+    // generate random word from wordsBank.js
     generateWord() {
         const wordsBank = require('./wordsbank');
         const Word = require('./Word');
