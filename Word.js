@@ -1,4 +1,4 @@
-var Letter = require('./Letter');
+const Letter = require('./Letter');
 
 //Word constructor
 class Word {
@@ -10,9 +10,9 @@ class Word {
     }
     //This method takes a word and splits the letters into objects
     splitLetters() {
-        var arr = this.word.split("");
+        let arr = this.word.split("");
         arr.forEach(value => {
-            var letter = new Letter(value);
+            let letter = new Letter(value);
             this.splittedLetters.push(letter);
         });
         return this;
@@ -20,7 +20,7 @@ class Word {
 
     //This method tracks the status of the guesses remaining and updates if guess is wrong or correct
     trackStatus() {
-        var track = 0;
+        let track = 0;
         this.splittedLetters.forEach(obj => {
             if (obj.checkGuess() !== '_') {
                 track++;
