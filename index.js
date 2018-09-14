@@ -31,9 +31,10 @@ class GameController {
                 name: "guess",
                 message: "Guess a letter."
             }]).then(letter => {
+                let guess = letter.guess.toLowerCase();
                 //Check user guess, track word status and display word to user
                 this.newWord
-                    .takeChar(letter.guess)
+                    .takeChar(guess)
                     .trackStatus()
                     .displayWord();
                 this.takeUserGuess();

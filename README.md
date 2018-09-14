@@ -1,5 +1,5 @@
-# Word Guess
-Word Guess is a node js CLI word guessing game built using JavaScript object constructors/classes. See Demo
+# Javascript Word Guessing Game
+This is a node js CLI word guessing game built using JavaScript object constructors/classes. See Demo
 
 ![Demo](/word_guessing.gif)
 
