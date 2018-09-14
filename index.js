@@ -41,16 +41,16 @@ class GameController {
     }
 
     //Ask the user to continue playing or not
-    resetGame(){
+    resetGame() {
         const confirm = require('inquirer-confirm');
         confirm('WOULD YOU LIKE TO PLAY AGAIN?')
-          .then(() => {
-            //if yes, generate new word
-            this.generateWord();
-          }, function cancelled() {
-            console.log('THANKS FOR PLAYING!');
-            return;
-          });
+            .then(() => {
+                //if yes, generate new word
+                this.generateWord();
+            }, function cancelled() {
+                console.log('THANKS FOR PLAYING!');
+                return;
+            });
     }
 }
 
