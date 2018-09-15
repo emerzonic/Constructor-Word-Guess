@@ -1,5 +1,5 @@
 //TThis class controls the game by calling methods on the word and letter classes
-class GameController {
+class Game {
     constructor() {
         this.newWord = '';
         this.score = 0;
@@ -59,5 +59,5 @@ class GameController {
 
 
 //start a new game
-const game = new GameController();
+const game = new Game();
 game.generateWord();
