@@ -13,9 +13,9 @@ class Word {
     //This method takes a word and splits the letters into objects
     splitLetters() {
         let arr = this.word.split("");
-        arr.forEach(value => {
-            let letter = new Letter(value);
-            this.splittedLetters.push(letter);
+        arr.forEach(l => {
+            let letterObj = new Letter(l);
+            this.splittedLetters.push(letterObj);
         });
         return this;
     }
@@ -64,10 +64,10 @@ class Word {
         } else {
             this.attempts--;
             console.log('\x1b[31m', 'INCORRECT!');
-            console.log('\x1b[31m',`You have ${this.attempts} ${this.attempts <= 1?'attempt':'attempts'} remaining.`);
+            console.log('\x1b[31m',`You have ${this.attempts} ${this.attempts >= 2?'attempts':'attempt'} remaining.`);
         }
-        let remaining = this.word.length - track;
-        console.log('\x1b[32m',`...${Number(remaining)} more ${remaining <= 1?'letter':'letters'} to guess it right.`);
+        let remainingNum = Number(this.word.length - track);
+        console.log('\x1b[32m',`...${remainingNum} more ${remainingNum >= 2?'letters':'letter'} remaining to guess it right.`);
         return this;
     }
 }
