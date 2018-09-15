@@ -1,4 +1,4 @@
-const Data = require('./wordsbank');
+const Data = require('./assets');
 //TThis class controls the game by calling methods on the word and letter classes
 class Game {
     constructor() {
@@ -22,12 +22,12 @@ class Game {
     }
 
     //validate that the user only inter a letter (A-Z)
-    validateUserInput(guess){
+    validateUserInput(guess) {
         return Data.validGuess.includes(guess);
     }
 
-    //Checks the word's status, prompts and takes the user guess and validate
-    takeUserGuess() {
+    //Checks if all the letters the word have been guess and the player fail attempts remaining.  
+    chechWordStatus() {
         if (this.newWord.status) {
             this.score++;
             console.log(`Your score is: ${this.score}`);
@@ -35,30 +35,38 @@ class Game {
             this.generateWord();
         } else {
             if (this.newWord.attempts <= 0) {
-                console.log('\x1b[31m','G A M E  O V E R !\n'); 
+                console.log('\x1b[31m', 'G A M E  O V E R !');
+                console.log("\x1b[37m",`The word was ${this.newWord.word}` + '\n');
                 return this.resetGame();
             }
-            const inquirer = require("inquirer");
-            inquirer.prompt([{
-                name: "guess",
-                message: "Guess a letter.",
-                validate: this.validateUserInput
-            }]).then(letter => {
-                let guess = letter.guess.toLowerCase();
-                if(this.guessedLetters.includes(guess)){
-                    console.log(`You have already guessed ${guess}. Try again`);
-                    return this.takeUserGuess();
-                }
-                this.guessedLetters.push(guess);
-                //Check user guess, track word status and display word to user
-                this.newWord
-                    .takeChar(guess)
-                    .trackStatus()
-                    .displayWord();
-                this.takeUserGuess();
-            });
+            this.takeUserGuess();
         }
     }
+
+    //This method takes the user guess and validate
+    takeUserGuess() {
+        const inquirer = require("inquirer");
+        inquirer.prompt([{
+            name: "guess",
+            message: "Guess a letter.",
+            validate: this.validateUserInput
+        }]).then(letter => {
+            let guess = letter.guess.toLowerCase();
+            if (this.guessedLetters.includes(guess)) {
+                console.log(`You have already guessed ${guess}. Try again`);
+                console.log(`Letters already guessed: ${this.guessedLetters}`);
+                return this.takeUserGuess();
+            }
+            this.guessedLetters.push(guess);
+            //Check user guess, track word status and display word to user
+            this.newWord
+                .takeChar(guess)
+                .trackStatus()
+                .displayWord();
+            this.chechWordStatus();
+        });
+    }
+
 
     //Ask the user to continue playing or not after game is over
     resetGame() {
