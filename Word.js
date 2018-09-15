@@ -23,7 +23,7 @@ class Word {
     //This method generates the number of attempts base on the length of the random word
     generateAttempts(){
         this.attempts = this.word.length * 3;
-        console.log('\x1b[31m',`You have ${this.attempts} fail attempts to make on this word.`);
+        console.log("\x1b[37m",`You have ${this.attempts} fail attempts to make on this word.`);
         return this;
     }
 
@@ -67,7 +67,7 @@ class Word {
             console.log('\x1b[31m',`You have ${this.attempts} ${this.attempts <= 1?'attempt':'attempts'} remaining.`);
         }
         let remaining = this.word.length - track;
-        console.log(`...${Number(remaining)} more ${remaining <= 1?'letter':'letters'} to guess it right.`);
+        console.log('\x1b[32m',`...${Number(remaining)} more ${remaining <= 1?'letter':'letters'} to guess it right.`);
         return this;
     }
 }
