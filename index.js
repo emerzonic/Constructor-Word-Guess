@@ -27,7 +27,7 @@ class Game {
     }
 
     //Checks if all the letters the word have been guess and the player fail attempts remaining.  
-    chechWordStatus() {
+    checKWordStatus() {
         if (this.newWord.status) {
             this.score++;
             console.log(`Your score is: ${this.score}`);
@@ -63,7 +63,7 @@ class Game {
                 .takeChar(guess)
                 .trackStatus()
                 .displayWord();
-            this.chechWordStatus();
+            this.checKWordStatus();
         });
     }
 
