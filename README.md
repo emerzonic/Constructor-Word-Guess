@@ -20,7 +20,7 @@
 
 See Demo
 
-![Demo](/word_guessing.gif)
+![Demo](/demo.gif)
 
 #### Dependencies
  * npm inquirer
