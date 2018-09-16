@@ -1,5 +1,6 @@
 const Data = require('./assets');
-//TThis class controls the game by calling methods on the word and letter classes
+
+//This class controls the game by calling methods on the word and letter classes
 class Game {
     constructor() {
         this.newWord = '';
