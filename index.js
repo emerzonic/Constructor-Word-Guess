@@ -24,7 +24,8 @@ class Game {
 
     //validate that the user only enter a letter (A-Z)
     validateUserInput(guess) {
-        return Data.validGuess.includes(guess);
+        let input = guess.toLowerCase(guess);
+        return Data.validGuess.includes(input);
     }
 
     //Checks if all the letters the word have been guess and also the player fail attempts remaining.  
