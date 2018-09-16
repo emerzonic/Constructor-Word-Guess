@@ -13,7 +13,7 @@ class Game {
         const Word = require('./Word');
         const randomWord = Data.wordsBank[Math.floor(Math.random() * Data.wordsBank.length)];
         console.log('YOU GOT A NEW WORD!');
-        console.log(randomWord); //for testing only
+        // console.log(randomWord); //for testing only
         this.newWord = new Word(randomWord);
         this.newWord
             .splitLetters()
