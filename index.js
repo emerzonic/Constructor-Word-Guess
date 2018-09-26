@@ -1,4 +1,4 @@
-const Data = require('./assets');
+const words = require('./assets');
 
 //This class controls the game by calling methods on the word and letter classes
 class Game {
@@ -11,7 +11,7 @@ class Game {
     // generate random word from wordsBank.js
     generateWord() {
         const Word = require('./Word');
-        const randomWord = Data.wordsBank[Math.floor(Math.random() * Data.wordsBank.length)];
+        const randomWord = words[Math.floor(Math.random() * words.length)];
         console.log('YOU GOT A NEW WORD!');
         // console.log(randomWord); //for testing only
         this.newWord = new Word(randomWord);
@@ -25,7 +25,7 @@ class Game {
     //validate that the user only enter a letter (A-Z)
     validateUserInput(guess) {
         let input = guess.toLowerCase(guess);
-        return Data.validGuess.includes(input);
+        return /^[a-zA-Z]*$/g.test(input);
     }
 
     //Checks if all the letters the word have been guess and also the player fail attempts remaining.  
