@@ -24,8 +24,7 @@ class Game {
 
     //validate that the user only enter a letter (A-Z)
     validateUserInput(guess) {
-        let input = guess.toLowerCase(guess);
-        return /^[a-zA-Z]*$/g.test(input);
+        return /^[a-zA-Z]*$/g.test(guess);
     }
 
     //Checks if all the letters the word have been guess and also the player fail attempts remaining.  
