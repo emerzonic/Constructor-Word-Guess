@@ -22,29 +22,8 @@ class Game {
         this.takeUserGuess();
     }
 
-    //validate that the user only enter a letter (A-Z)
-    validateUserInput(guess) {
-        return /^[a-zA-Z]*$/g.test(guess);
-    }
 
-    //Checks if all the letters the word have been guess and also the player fail attempts remaining.  
-    checKWordStatus() {
-        if (this.newWord.status) {
-            this.score++;
-            console.log(`Your score is: ${this.score}`);
-            this.guessedLetters = [];
-            this.generateWord();
-        } else {
-            if (this.newWord.attempts <= 0) {
-                console.log('\x1b[31m', 'G A M E  O V E R !');
-                console.log("\x1b[37m",`The word was ${this.newWord.word}` + '\n');
-                return this.resetGame();
-            }
-            this.takeUserGuess();
-        }
-    }
-
-    //This method takes the user guess and validate
+    //This method takes the user guess and controls the game
     takeUserGuess() {
         const inquirer = require("inquirer");
         inquirer.prompt([{
@@ -59,7 +38,6 @@ class Game {
                 return this.takeUserGuess();
             }
             this.guessedLetters.push(guess);
-            //Check user guess, track word status and display word to user
             this.newWord
                 .takeChar(guess)
                 .trackStatus()
@@ -68,8 +46,29 @@ class Game {
         });
     }
 
+    //validate that the user only enter a letter (A-Z)
+    validateUserInput(userInput) {
+        return /^[a-zA-Z]*$/g.test(userInput);
+    }
 
-    //Ask the user to continue playing or not after game is over
+    //Checks if all the letters the word have been guess and also the player fail attempts remaining.  
+    checKWordStatus() {
+        if (this.newWord.status) {
+            this.score++;
+            console.log(`Your score is: ${this.score}`);
+            this.guessedLetters = [];
+            this.generateWord();
+        } else {
+            if (this.newWord.attempts <= 0) {
+                console.log('\x1b[31m', 'G A M E  O V E R !');
+                console.log("\x1b[37m", `The word was ${this.newWord.word}` + '\n');
+                return this.resetGame();
+            }
+            this.takeUserGuess();
+        }
+    }
+
+    //Asks the user to continue playing or not after game is over
     resetGame() {
         const confirm = require('inquirer-confirm');
         confirm('WOULD YOU LIKE TO PLAY AGAIN?')
