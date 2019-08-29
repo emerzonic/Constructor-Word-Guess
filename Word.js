@@ -1,74 +1,83 @@
 const Letter = require('./Letter');
+const Logger = require('./Logger');
 
-//Word constructor
 class Word {
     constructor(word) {
         this.word = word;
-        this.splittedLetters = [];
-        this.status = false;
+        this.letters = [];
         this.feedback = 0;
         this.attempts = 0;
+        this.displayWord = '';
     }
 
-    //This method takes a word and splits the letters into objects
-    splitLetters() {
-        let arr = this.word.split("");
-        arr.forEach(l => {
-            let letterObj = new Letter(l);
-            this.splittedLetters.push(letterObj);
-        });
+    getLettersFromWord() {
+        [...this.word].reduce((letters, letter) => {
+            letters.push(new Letter(letter));
+            return letters;
+        }, this.letters);
         return this;
     }
 
-    //This method generates the number of attempts base on the length of the random word
-    generateAttempts(){
+    setNumberOfAttempts() {
         this.attempts = this.word.length * 3;
-        console.log("\x1b[37m",`You have ${this.attempts} fail attempts to make on this word.`);
+        Logger.logMessage("\x1b[37m", `You have ${this.attempts} fail attempts to make on this word.`);
         return this;
     }
 
-
-    //This method takes each letter object and calls the Letter checkGuess method and returns a word and status of user guesses left.
-    displayWord() {
-        var displayWord = '';
-        this.splittedLetters.forEach(obj => {
-            return displayWord += " " + obj.checkGuess();
-        });
-        console.log(`\x1b[37m ${displayWord} \n`);
-        if (!displayWord.match('_')) {
-            this.status = true;
-            console.log('You guessed it right!');
-        }
+    outputWord() {
+        this.setDisplayWord();
+        Logger.logMessage(`\x1b[37m ${this.displayWord} \n`);
         return this;
     }
 
-    //This method takes the user's guess(letter) and calls the Letter takeGuess method on it.
-    takeChar(guess) {
-        this.splittedLetters.forEach(obj => {
-            obj.takeGuess(guess);
+    setDisplayWord() {
+        this.letters.reduce((letters, letter) => {
+            letters.push(letter.getLetter());
+            this.displayWord = letters.join(" ");
+            return letters;
+        }, []);
+    }
+
+    isAlreadyGuessed() {
+        return !this.displayWord.match('_');
+    }
+
+    validateGuess(guess) {
+        this.letters.forEach(letter => {
+            letter.checkGuess(guess);
         });
         return this;
     }
 
-    //This method tracks the status of the guesses remaining and updates if guess is wrong or correct
-    trackStatus() {
-        let track = 0;
-        this.splittedLetters.forEach(obj => {
-            if (obj.checkGuess() !== '_') {
-                track++;
-            }
-        });
-        if (this.feedback !== track) {
-            console.log('\x1b[32m', 'CORRECT!');
-            this.feedback = track;
+    trackWordStatus() {
+        if (this.guessWasCorrect()) {
+            Logger.logMessage('\x1b[32m', 'CORRECT!');
         } else {
-            this.attempts--;
-            console.log('\x1b[31m', 'INCORRECT!');
-            console.log('\x1b[31m',`You have ${this.attempts} ${this.attempts >= 2?'attempts':'attempt'} remaining.`);
+            Logger.logMessage('\x1b[31m', 'INCORRECT!');
+            this.reduceNumberOfAttempts();
         }
-        let remainingNum = Number(this.word.length - track);
-        console.log('\x1b[32m',`...${remainingNum} more ${remainingNum >= 2?'letters':'letter'} remaining to guess it right.`);
+        this.displayNumberOfLettersRemaining();
         return this;
+    }
+
+    guessWasCorrect() {
+        const currentWordOutput = this.letters.reduce((letters, letter) => {
+            letters.push(letter.getLetter());
+            return letters;
+        }, []);
+
+        return this.displayWord !== currentWordOutput.join(" ");
+    }
+
+    reduceNumberOfAttempts() {
+        this.attempts--
+        Logger.logMessage('\x1b[31m', `You have ${this.attempts} ${this.attempts >= 2 ? 'attempts' : 'attempt'} remaining.`);
+    }
+
+    displayNumberOfLettersRemaining() {
+        const remainingLetters = [...this.displayWord].filter(letter => letter === "_");
+        const remainingLettersToGuess = remainingLetters.length;
+        Logger.logMessage('\x1b[32m', `...${remainingLettersToGuess} more ${remainingLettersToGuess >= 2 ? 'letters' : 'letter'} remaining to guess it right.`);
     }
 }
 
