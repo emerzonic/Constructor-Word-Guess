@@ -1,25 +1,21 @@
-//Letter constructor
 class Letter {
     constructor(letter) {
         this.letter = letter;
-        this.placeholder = '_';
-        this.status = false;
+        this.placeHolder = '_';
+        this.isLetterGuessed = false;
     }
 
-    //This method checks every letter in the word and returns a letter or underscore
-    checkGuess() {
-        if (this.status) {
+    getLetter() {
+        if (this.isLetterGuessed) {
             return this.letter;
-        }
-        else {
-            return this.placeholder;
+        }else {
+            return this.placeHolder;
         }
     }
 
-    //This method takes a letter as guess and checks it against each letter of the word
-    takeGuess(guess) {
+    checkGuess(guess) {
         if (this.letter === guess) {
-            this.status = true;
+            this.isLetterGuessed = true;
         }
     }
 }
