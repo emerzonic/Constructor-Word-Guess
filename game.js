@@ -23,8 +23,7 @@ class Game {
     generateWord() {
         const randomWord = words[Math.floor(Math.random() * words.length)];
         Logger.logMessage('YOU GOT A NEW WORD!');
-        // Logger.logMessage(randomWord); //for testing only
-        this.newWord = new Word('ch');
+        this.newWord = new Word(randomWord);
     }
 
     takeUserGuess() {
@@ -35,14 +34,6 @@ class Game {
             this.addGuessToAlreadyGuessLetters(guess);
             this.playGame(guess);
         });
-    }
-
-    playGame(guess) {
-        this.newWord
-            .validateGuess(guess)
-            .trackWordStatus()
-            .outputWord();
-        this.checKGameStatus();
     }
 
     getParams() {
@@ -73,6 +64,14 @@ class Game {
         this.guessedLetters.push(guess);
     }
 
+    playGame(guess) {
+        this.newWord
+            .validateGuess(guess)
+            .trackWordStatus()
+            .outputWord();
+        this.checKGameStatus();
+    }
+
     checKGameStatus() {
         if (this.newWord.isAlreadyGuessed()) {
             this.increaseScore();
@@ -87,6 +86,12 @@ class Game {
         }
     }
 
+    increaseScore() {
+        this.score++;
+        Logger.logMessage(`Your guessed it right!`);
+        Logger.logMessage(`Your score is: ${this.score}`);
+    }
+
     resetGuessLetters() {
         this.guessedLetters = [];
     }
@@ -94,12 +99,6 @@ class Game {
     displayGameOver() {
         Logger.logMessage('\x1b[31m', 'G A M E  O V E R !');
         Logger.logMessage("\x1b[37m", `The word was ${this.newWord.word}` + '\n');
-    }
-
-    increaseScore() {
-        this.score++;
-        Logger.logMessage(`Your guessed it right!`);
-        Logger.logMessage(`Your score is: ${this.score}`);
     }
 
     resetGame() {
