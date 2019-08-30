@@ -65,7 +65,6 @@ class Word {
             letters.push(letter.getLetter());
             return letters;
         }, []);
-
         return this.displayWord !== currentWordOutput.join(" ");
     }
 
