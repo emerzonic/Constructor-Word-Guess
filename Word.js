@@ -5,7 +5,6 @@ class Word {
     constructor(word) {
         this.word = word;
         this.letters = [];
-        this.feedback = 0;
         this.attempts = 0;
         this.displayWord = '';
     }
@@ -50,17 +49,18 @@ class Word {
     }
 
     trackWordStatus() {
-        if (this.guessWasCorrect()) {
+        if (this.isGuessCorrect()) {
             Logger.logMessage('\x1b[32m', 'CORRECT!');
         } else {
             Logger.logMessage('\x1b[31m', 'INCORRECT!');
-            this.reduceNumberOfAttempts();
+            this.attempts--;
+            this.displayNumberOfAttempsRemaining()
         }
         this.displayNumberOfLettersRemaining();
         return this;
     }
 
-    guessWasCorrect() {
+    isGuessCorrect() {
         const currentWordOutput = this.letters.reduce((letters, letter) => {
             letters.push(letter.getLetter());
             return letters;
@@ -69,15 +69,20 @@ class Word {
         return this.displayWord !== currentWordOutput.join(" ");
     }
 
-    reduceNumberOfAttempts() {
-        this.attempts--
-        Logger.logMessage('\x1b[31m', `You have ${this.attempts} ${this.attempts >= 2 ? 'attempts' : 'attempt'} remaining.`);
+    displayNumberOfAttempsRemaining() {
+        const displayText = this.getSingularOrPluralText('attempt', this.attempts);
+        Logger.logMessage('\x1b[31m', `You have ${this.attempts} ${displayText} remaining.`);
     }
 
     displayNumberOfLettersRemaining() {
         const remainingLetters = [...this.displayWord].filter(letter => letter === "_");
         const remainingLettersToGuess = remainingLetters.length;
-        Logger.logMessage('\x1b[32m', `...${remainingLettersToGuess} more ${remainingLettersToGuess >= 2 ? 'letters' : 'letter'} remaining to guess it right.`);
+        const displayText = this.getSingularOrPluralText('letter', remainingLettersToGuess);
+        Logger.logMessage('\x1b[32m', `...${remainingLettersToGuess} more ${displayText} remaining to guess it right.`);
+    }
+
+    getSingularOrPluralText(text, count){
+        return count >= 2 ? `${text}s`: text;
     }
 }
 
